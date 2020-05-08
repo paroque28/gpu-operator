@@ -29,7 +29,7 @@ platform:
   openshift: false
 
 operator:
-  repository: nvidia
+  repository: paroque28
   image: gpu-operator
 # If not set, the tag defaults to Chart.AppVersion
 # tag: "foo"
@@ -59,17 +59,17 @@ operator:
                 values: [""]
 
 driver:
-  repository: nvidia
+  repository: paroque28
   image: driver
   version: "440.64.00"
 
 toolkit:
-  repository: nvidia
+  repository: paroque28
   image: container-toolkit
   version: 1.0.0-beta.0
 
 devicePlugin:
-  repository: nvidia
+  repository: paroque28
   image: k8s-device-plugin
   version: 1.0.0-beta4
 

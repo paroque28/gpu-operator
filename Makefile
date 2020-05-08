@@ -17,7 +17,7 @@ DOCKERFILE_ARM64 ?= $(CURDIR)/docker/Dockerfile.ubuntu18.04.arm64.prod
 DOCKERFILE_ARM64_DEVEL ?= $(CURDIR)/docker/Dockerfile.arm64.devel
 
 BIN_NAME  ?= gpu-operator
-IMAGE     ?= nvidia/gpu-operator
+IMAGE     ?= paroque28/gpu-operator
 VERSION   ?= 1.1.2
 TAG       ?= latest
 TAG_DEVEL ?= devel
