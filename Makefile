@@ -13,6 +13,8 @@ include $(MAKE_DIR)/common.mk
 
 DOCKERFILE       ?= $(CURDIR)/docker/Dockerfile.ubi8.prod
 DOCKERFILE_DEVEL ?= $(CURDIR)/docker/Dockerfile.devel
+DOCKERFILE_ARM64 ?= $(CURDIR)/docker/Dockerfile.ubuntu18.04.arm64.prod
+DOCKERFILE_ARM64_DEVEL ?= $(CURDIR)/docker/Dockerfile.arm64.devel
 
 BIN_NAME  ?= gpu-operator
 IMAGE     ?= nvidia/gpu-operator
@@ -70,3 +72,10 @@ prod-image:
 
 devel-image:
 	$(DOCKER) build -t $(IMAGE):$(TAG_DEVEL) -f $(DOCKERFILE_DEVEL) .
+
+arm64-prod-image:
+	$(DOCKER) build --build-arg VERSION=$(VERSION) -t $(IMAGE):$(TAG) -f $(DOCKERFILE_ARM64) .
+
+arm64-devel-image:
+	$(DOCKER) build -t $(IMAGE):$(TAG_DEVEL) -f $(DOCKERFILE_ARM64_DEVEL) .
+
