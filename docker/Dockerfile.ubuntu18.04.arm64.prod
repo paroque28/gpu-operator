@@ -1,0 +1,45 @@
+FROM arm64v8/ubuntu:18.04 AS builder
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl \
+        ca-certificates \
+        git \
+        build-essential \
+        dh-make \
+        fakeroot \
+        devscripts \
+        lsb-release && \
+    rm -rf /var/lib/apt/lists/*
+
+ARG GOLANG_VERSION=1.13.10
+RUN curl https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-arm64.tar.gz \
+        | tar -C /usr/local -xz
+
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
+RUN go version
+
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+WORKDIR /go/src/github.com/NVIDIA/gpu-operator
+
+COPY cmd/ ./cmd/
+COPY mk/ ./mk/
+COPY pkg/ pkg/
+COPY Makefile go.mod go.sum ./
+
+RUN make build
+
+FROM arm64v8/ubuntu:18.04
+LABEL io.k8s.display-name="NVIDIA GPU Operator"
+
+COPY --from=builder /go/src/github.com/NVIDIA/gpu-operator/gpu-operator  /usr/bin/
+
+RUN mkdir -p /opt/gpu-operator
+COPY assets /opt/gpu-operator/
+
+RUN useradd gpu-operator
+USER gpu-operator
+
+ENTRYPOINT ["/usr/bin/gpu-operator"]
