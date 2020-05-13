@@ -101,6 +101,15 @@ node-feature-discovery   nfd-worker-s62kd                             1/1     Ru
 
 ```
 
+#### Install from sources
+```sh
+# Build the Helm charts
+$ helm package deployments/gpu-operator/ --debug
+
+# Deploy Helm charts
+$ helm install gpu-operator-1.0.0.tgz --wait --generate-name
+```
+
 #### Uninstall GPU Operator
 ```sh
 $ helm delete <gpu-operator-name>
