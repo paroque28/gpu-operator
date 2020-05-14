@@ -24,6 +24,11 @@ node-feature-discovery:
         pci:
           deviceLabelFields:
           - vendor
+          deviceClassWhiteList:
+          - "03"
+          - "0b40"
+          - "12"
+          - "06"
 
 platform:
   openshift: false
