@@ -30,7 +30,7 @@ spec:
       hostPID: true
       containers:
       - image: "FILLED BY THE OPERATOR"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: nvidia-driver-ctr
         command: ["nvidia-driver"]
         args: ["init"]
