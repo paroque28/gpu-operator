@@ -1,0 +1,4 @@
+FROM alpine
+RUN echo -e "#!/bin/sh\necho IDLE\ntail -f /dev/null" >> /bin/idle && chmod +x /bin/idle
+RUN ln -s /bin/idle /bin/nvidia-driver
+ENTRYPOINT ["idle"]
