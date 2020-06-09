@@ -1,0 +1,4 @@
+FROM nvcr.io/nvidia/l4t-base:r32.3.1
+RUN ln -s /lib/ /lib64
+COPY ./deviceQuery /usr/bin/
+ENTRYPOINT ["/usr/bin/deviceQuery"]
